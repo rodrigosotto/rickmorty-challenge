@@ -1,38 +1,28 @@
 <div class="container">
-  <div class="row mb-4 d-flex justify-content-between align-items-center">
+  <div class="row d-flex justify-content-between">
     <div class="col-auto">
-      <h2 class="title">INICIO</h2>
+      <h2 class="title">INíCIO</h2>
     </div>
     <div class="col-auto">
-      <div class="input-group search-group">
-        <input
-          type="text"
-          class="form-control search-input"
-          placeholder="Pesquisar"
-          [(ngModel)]="searchTerm"
-        />
-      </div>
+
+      <mat-form-field appearance="outline" class="custom-search">
+        <mat-label>Pesquisar</mat-label>
+        <input class="search-input" matInput [(ngModel)]="searchTerm" [(ngModel)]="searchTerm" (keyup.enter)="search()"
+          (ngModelChange)="search()" />
+      </mat-form-field>
+
+
     </div>
   </div>
 
   <div class="row g-4">
-    <div class="col-4" *ngFor="let character of characters">
+    @for (character of characters; track character.id) {
+    <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="card position-relative">
-        <img
-          [src]="character.image"
-          class="card-img-top"
-          [alt]="character.name"
-        />
-        <button
-          class="favorite-btn"
-          [class.active]="isFavorite(character)"
-          (click)="toggleFavorite(character)"
-          aria-label="Favoritar personagem"
-        >
-          <i
-            class="bi"
-            [ngClass]="isFavorite(character) ? 'bi-heart-fill' : 'bi-heart'"
-          ></i>
+        <img [src]="character.image" class="card-img-top" [alt]="character.name" />
+        <button class="favorite-btn" [class.active]="isFavorite(character)" (click)="toggleFavorite(character)"
+          aria-label="Favoritar personagem">
+          <i [class]="isFavorite(character) ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
         </button>
         <div class="card-body">
           <h5 class="card-title">{{ character.name }}</h5>
@@ -40,5 +30,7 @@
         </div>
       </div>
     </div>
+    }
   </div>
+
 </div>

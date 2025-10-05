@@ -1,0 +1,35 @@
+@mixin custom-search-field($radius: 20px, $color: #A4A4A4, $bg: #1F1F1F, $width: 327px) {
+  ::ng-deep {
+    .custom-search {
+      width: $width !important;
+
+      .mdc-notched-outline {
+        border-radius: $radius !important;
+        color: $color;
+        border: 1px solid $color !important;
+        padding: 0 10px !important;
+        background: transparent;
+      }
+
+      // Input interno
+      .mat-mdc-input-element {
+        padding-left: 10px !important;
+      }
+
+      &.mat-focused .mat-mdc-floating-label {
+        top: -9px;
+        transform: none;
+        font-size: 0.75rem;
+        background-color: $bg;
+        color: #A4A4A4 !important;
+        padding: 0 5px;
+      }
+
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__trailing,
+      .mdc-notched-outline__notch {
+        border: none;
+      }
+    }
+  }
+}

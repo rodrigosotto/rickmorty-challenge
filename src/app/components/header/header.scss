@@ -1,7 +1,7 @@
 header {
   background: #0a0a0a;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -52,7 +52,7 @@ header {
           font-weight: 600;
           font-size: 1rem;
           border: none;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
           transition: background 0.2s, color 0.2s;
           display: flex;
           align-items: center;
@@ -69,82 +69,89 @@ header {
     }
   }
 
-  // ...existing code...
-
-.nav-bar-custom {
-  display: flex;
-  background: #181818;
-  border-radius: 20px;
-  border: 2px solid #444;
-  overflow: hidden;
-  align-items: center;
-  height: 60px;
-  min-width: 420px;
-  margin-left: 32px;
-
-  .nav-btn-home {
+  .nav-bar-custom {
     display: flex;
+    background: #1a1a1a;
+    border-radius: 50px;
+    border: 2px solid #333;
+    overflow: hidden;
     align-items: center;
-    gap: 12px;
-    background: #fff;
-    color: #181818;
-    font-weight: 700;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 0;
-    padding: 0 32px;
-    height: 100%;
-    cursor: pointer;
-    box-shadow: none;
-    transition: background 0.2s, color 0.2s;
+    height: 56px;
 
-    .icon {
-      font-size: 2rem;
-      margin-right: 8px;
-    }
-  }
-
-  .nav-btn-home.active {
-    background: #fff;
-    color: #181818;
-  }
-
-  .nav-btn-fav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #181818;
-    color: #bdbdbd;
-    font-weight: 600;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 0;
-    padding: 0 28px 0 24px;
-    height: 100%;
-    cursor: pointer;
-    box-shadow: none;
-    transition: background 0.2s, color 0.2s;
-
-    .icon {
-      font-size: 2rem;
-      margin-right: 8px;
-    }
-
-    .fav-count {
-      background: #fff;
-      color: #181818;
-      border-radius: 50%;
-      border: 3px solid #bdbdbd;
-      font-weight: 700;
-      font-size: 1.3rem;
-      width: 38px;
-      height: 38px;
+    .nav-btn-home {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-left: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      gap: 8px;
+      background: #fff;
+      color: #000;
+      font-weight: 600;
+      font-size: 14px;
+      font-family: 'Poppins', system-ui;
+      border: none;
+      border-radius: 50px 0 0 50px;
+      padding: 0 28px;
+      height: 100%;
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.2s;
+      text-decoration: none;
+
+      .icon {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+
+    .nav-btn-home.active {
+      background: #fff;
+      color: #000;
+    }
+
+    .nav-btn-fav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a1a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      font-family: 'Poppins', system-ui;
+      border: none;
+      border-radius: 0;
+      padding: 0 28px;
+      height: 100%;
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.2s;
+      text-decoration: none;
+
+      .icon {
+        font-size: 1rem;
+      }
+
+      .fav-count {
+        background: #fff;
+        color: #000;
+        border-radius: 50%;
+        border: none;
+        font-weight: 700;
+        font-size: 14px;
+        font-family: 'Poppins', system-ui;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      &:hover {
+        background: #2a2a2a;
+      }
     }
   }
-}
 }

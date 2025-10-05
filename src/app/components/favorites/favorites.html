@@ -5,8 +5,10 @@
     </div>
   </div>
 
-  <div class="row g-4" *ngIf="favorites.length > 0">
-    <div class="col-4" *ngFor="let character of favorites">
+  @if (favorites.length > 0) {
+  <div class="row g-4">
+    @for (character of favorites; track character.id) {
+    <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="card position-relative">
         <img
           [src]="character.image"
@@ -26,16 +28,18 @@
         </div>
       </div>
     </div>
+    }
   </div>
+}@else {
+  <div class="favorites__empty">
 
-  <div class="favorites__empty text-center" *ngIf="favorites.length === 0" style="margin-top: 3rem;">
-    <i class="bi bi-heart-break favorites__empty-icon" style="font-size: 4rem; color: #4ee1a0;"></i>
-    <h3 class="favorites__empty-title" style="color: white; margin-top: 1rem;">Nenhum personagem favorito</h3>
-    <p class="favorites__empty-text" style="color: #ccc; margin-bottom: 1.5rem;">
-      Você ainda não adicionou nenhum personagem aos favoritos.
-    </p>
-    <button class="btn btn-outline-success" routerLink="/characters" style="font-family: 'Creepster', system-ui;">
-      Explorar personagens
+    <p>Parece que você não tem favoritos</p>
+    <span>
+      Volte à página inicial e escolha os melhores para você.
+    </span>
+    <button class="favorites__empty--button" routerLink="/characters" >
+     Voltar ao início
     </button>
   </div>
+}
 </div>

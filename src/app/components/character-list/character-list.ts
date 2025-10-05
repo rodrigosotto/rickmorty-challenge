@@ -4,15 +4,32 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CharacterService } from '../../services/character.service';
 import { FavoriteService } from '../../services/favorites.service';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-character-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
+    },
+  ],
   templateUrl: './character-list.html',
   styleUrl: './character-list.scss',
 })
 export class CharacterList implements OnInit {
+
   characters: any[] = [];
   searchTerm: string = '';
   currentPage: number = 1;

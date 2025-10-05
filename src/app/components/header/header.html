@@ -5,10 +5,13 @@
         <img src="../../../app//assets/images/logo.png" alt="Rick and Morty Logo" height="50">
       </div>
 
-<nav class="nav-bar-custom">
-  <a class="nav-btn-home active" routerLink="/"><span class="icon">🏠</span>Início</a>
-  <a class="nav-btn-fav" routerLink="/favorites"><span class="icon">❤️</span>Favoritos <span class="fav-count">3</span></a>
-</nav>
+      <nav class="nav-bar-custom">
+        <a class="nav-btn-home active" routerLink="/"><span class="icon bi bi-house-fill"></span>Início</a>
+        <a class="nav-btn-fav" routerLink="/favorites"><span class="icon bi bi-heart-fill"></span>Favoritos
+          <span class="fav-count">
+            {{ favoriteCount }}
+          </span></a>
+      </nav>
     </div>
   </div>
 </header>
