@@ -17,25 +17,13 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
    cd rickmorty-challenge
    ```
 
-2. **Outra alternativa seria fazer o download do repositório**
-
-- [Baixar repositório](https://github.com/rodrigosotto/rickmorty-challenge/archive/refs/heads/main.zip)
-
-```sh
-Após baixar o arquivo .zip você deve descompactar
-cd rickmorty-challenge
-npm install
-ng serve
-acesse http://localhost:4200
-```
-
-3. **Instale as dependências**
+2. **Instale as dependências**
 
    ```sh
    npm install
    ```
 
-4. **Rodando a aplicação**
+3. **Rodando a aplicação**
 
    ```sh
    ng serve
@@ -47,7 +35,7 @@ acesse http://localhost:4200
    npm start
    ```
 
-5. **Acesse no navegador**
+4. **Acesse no navegador**
    - Abra [http://localhost:4200](http://localhost:4200)
 
 ## Estrutura do Projeto
@@ -70,8 +58,10 @@ acesse http://localhost:4200
 
 ---
 
-## Deploy feito na Vercel
+## Deploy feito na Vercel você pode acessar o app clicando no link abaixo
 
 - [rickmorty-challenge](https://rickmorty-challenge.vercel.app/characters)
+
+## Dúvidas
 
 Se precisar de instruções para deploy ou integração, consulte a documentação Angular ou peça detalhes aqui, Valeu!
