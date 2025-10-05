@@ -47,7 +47,7 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
 ## Observações
 
 - O projeto utiliza Angular, RxJS e SCSS.
-- Para tradução, utilize os arquivos de i18n/locales.
+- Para tradução, utilize o service i18n
 - Para problemas com dependências, remova `node_modules` e rode `npm install` novamente.
 
 ## Scripts úteis
@@ -58,4 +58,4 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
 
 ---
 
-Se precisar de instruções para deploy ou integração, consulte a documentação Angular ou peça detalhes aqui!
+Se precisar de instruções para deploy ou integração, consulte a documentação Angular ou peça detalhes aqui, Valeu!
