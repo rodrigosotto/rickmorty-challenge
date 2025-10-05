@@ -2,7 +2,17 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Subject, takeUntil, debounceTime, distinctUntilChanged, switchMap, startWith, catchError, of, BehaviorSubject } from 'rxjs';
+import {
+  Subject,
+  takeUntil,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  startWith,
+  catchError,
+  of,
+  BehaviorSubject,
+} from 'rxjs';
 import { CharacterService, Character } from '../../services/character.service';
 import { FavoriteService } from '../../services/favorites.service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -54,21 +64,24 @@ export class CharacterList implements OnInit, OnDestroy {
   }
 
   private setupSearch(): void {
-    // Busca eficiente com RxJS
+    // Busca com RxJS
     this.searchSubject
       .pipe(
         debounceTime(300), // Aguarda 300ms após parar de digitar
         distinctUntilChanged(), // Só faz nova busca se o termo mudou
-        switchMap(searchTerm => {
+        switchMap((searchTerm) => {
           this.loading = true;
           this.currentPage = 1;
           this.characters = [];
 
           return this.characterService.getCharacters(1, searchTerm).pipe(
-            catchError(err => {
+            catchError((err) => {
               this.error = 'Erro ao buscar personagens. Tente novamente.';
               console.error('Erro na busca:', err);
-              return of({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
+              return of({
+                info: { count: 0, pages: 0, next: null, prev: null },
+                results: [],
+              });
             })
           );
         }),
@@ -81,7 +94,7 @@ export class CharacterList implements OnInit, OnDestroy {
           this.hasMore = this.currentPage < this.totalPages;
           this.loading = false;
           this.error = null;
-        }
+        },
       });
 
     // Inicia a primeira busca
@@ -91,8 +104,8 @@ export class CharacterList implements OnInit, OnDestroy {
   private setupFavorites(): void {
     this.favoriteService.favorites$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(favorites => {
-        this.favoriteIds = new Set(favorites.map(f => f.id));
+      .subscribe((favorites) => {
+        this.favoriteIds = new Set(favorites.map((f) => f.id));
       });
   }
 

@@ -8,7 +8,7 @@ export interface Translations {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class I18nService {
   private currentLanguageSubject = new BehaviorSubject<SupportedLanguage>('pt');
@@ -26,14 +26,18 @@ export class I18nService {
       'end.message': 'Você chegou ao fim da lista! 🎉',
       'error.load': 'Erro ao carregar personagens. Tente novamente.',
       'error.search': 'Erro ao buscar personagens. Tente novamente.',
+      'search.title': 'Resultados da Pesquisa',
+      'search.empty': 'Nada foi encontrado',
+      'search.emptySpan': 'Tente realizar uma nova busca.',
       'favorites.title': 'Favoritos',
       'favorites.empty': 'Nenhum personagem favoritado ainda.',
       'favorites.add': 'Adicionar aos favoritos',
       'favorites.remove': 'Remover dos favoritos',
       'character.status.unknown': 'Desconhecido',
       'favorites.clearAll': 'Limpar tudo',
-      'favorites.emptySpan': 'Retorne à página inicial e escolha os melhores para você.',
-      'favorites.emptyButton': 'Voltar ao início'
+      'favorites.emptySpan':
+        'Retorne à página inicial e escolha os melhores para você.',
+      'favorites.emptyButton': 'Voltar ao início',
     },
     en: {
       'app.title': 'Rick & Morty',
@@ -46,6 +50,9 @@ export class I18nService {
       'end.message': 'You reached the end of the list! 🎉',
       'error.load': 'Error loading characters. Please try again.',
       'error.search': 'Error searching characters. Please try again.',
+      'search.title': 'Search Results',
+      'search.empty': 'Nothing was found',
+      'search.emptySpan': 'Try performing a new search.',
       'favorites.title': 'Favorites',
       'favorites.empty': 'No favorite characters yet.',
       'favorites.add': 'Add to favorites',
@@ -54,8 +61,9 @@ export class I18nService {
       'character.status.dead': 'Dead',
       'character.status.unknown': 'Unknown',
       'favorites.clearAll': 'Clear all',
-      'favorites.emptySpan': 'Return to the home page and choose the best for you.',
-      'favorites.emptyButton': 'Go back to the home page'
+      'favorites.emptySpan':
+        'Return to the home page and choose the best for you.',
+      'favorites.emptyButton': 'Go back to the home page',
     },
     es: {
       'app.title': 'Rick & Morty',
@@ -68,20 +76,26 @@ export class I18nService {
       'end.message': '¡Llegaste al final de la lista! 🎉',
       'error.load': 'Error al cargar personajes. Inténtalo de nuevo.',
       'error.search': 'Error al buscar personajes. Inténtalo de nuevo.',
+      'search.title': 'Resultados de la búsqueda',
+      'search.empty': 'No se encontró nada',
+      'search.emptySpan': 'Intenta realizar una nueva búsqueda.',
       'favorites.title': 'Favoritos',
       'favorites.empty': 'Aún no hay personajes favoritos.',
       'favorites.add': 'Agregar a favoritos',
       'favorites.remove': 'Quitar de favoritos',
       'character.status.unknown': 'Desconocido',
       'favorites.clearAll': 'Limpiar todo',
-      'favorites.emptySpan': 'Retorne à página inicial e escolha os melhores para você.',
-      'favorites.emptyButton': 'Volver al início'
-    }
+      'favorites.emptySpan':
+        'Retorne à página inicial e escolha os melhores para você.',
+      'favorites.emptyButton': 'Volver al início',
+    },
   };
 
   constructor() {
     // Carrega idioma salvo ou usa português como padrão
-    const savedLang = localStorage.getItem('preferred-language') as SupportedLanguage;
+    const savedLang = localStorage.getItem(
+      'preferred-language'
+    ) as SupportedLanguage;
     if (savedLang && this.translations[savedLang]) {
       this.currentLanguageSubject.next(savedLang);
     }

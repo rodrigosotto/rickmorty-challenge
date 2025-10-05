@@ -1,7 +1,13 @@
-@mixin custom-search-field($radius: 20px, $color: #A4A4A4, $bg: #1F1F1F, $width: 327px) {
+@mixin custom-search-field($radius: 20px, $color: #A4A4A4, $bg: #1F1F1F, $width: 450px) {
   ::ng-deep {
     .custom-search {
       width: $width !important;
+
+      // Responsivo: 100% em mobile
+      @media (max-width: 768px) {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
 
       .mdc-notched-outline {
         border-radius: $radius !important;
@@ -9,11 +15,29 @@
         border: 1px solid $color !important;
         padding: 0 10px !important;
         background: transparent;
+
+        @media (max-width: 576px) {
+          border-radius: 16px !important;
+        }
+
+        @media (max-width: 480px) {
+          border-radius: 12px !important;
+          padding: 0 8px !important;
+        }
       }
 
-      // Input interno
       .mat-mdc-input-element {
         padding-left: 10px !important;
+        font-size: 1rem !important;
+
+        @media (max-width: 576px) {
+          font-size: 0.9375rem !important;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 0.875rem !important;
+          padding-left: 8px !important;
+        }
       }
 
       &.mat-focused .mat-mdc-floating-label {
@@ -23,12 +47,46 @@
         background-color: $bg;
         color: #A4A4A4 !important;
         padding: 0 5px;
+
+        @media (max-width: 480px) {
+          font-size: 0.6875rem;
+          top: -8px;
+        }
+      }
+
+      .mat-mdc-floating-label {
+        font-size: 1rem;
+
+        @media (max-width: 576px) {
+          font-size: 0.9375rem;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 0.875rem;
+        }
       }
 
       .mdc-notched-outline__leading,
       .mdc-notched-outline__trailing,
       .mdc-notched-outline__notch {
         border: none;
+      }
+
+      // Ajusta o form field wrapper
+      .mat-mdc-text-field-wrapper {
+        @media (max-width: 480px) {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      }
+
+      // Ajusta a altura do campo em mobile
+      .mat-mdc-form-field-infix {
+        min-height: 48px;
+
+        @media (max-width: 480px) {
+          min-height: 44px;
+        }
       }
     }
   }

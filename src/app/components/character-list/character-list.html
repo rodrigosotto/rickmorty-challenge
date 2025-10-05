@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row d-flex justify-content-between">
+  <div class="row d-flex justify-content-between mb-4">
     <div class="col-auto">
       <h2 class="title">{{ 'nav.home' | translate }}</h2>
     </div>
@@ -70,8 +70,12 @@
 
   <!-- Empty State -->
   @if (!loading && characters.length === 0 && !error) {
-    <div class="empty-state text-center">
-      <p>{{ 'favorites.empty' | translate }}</p>
-    </div>
+ <div class="search__empty">
+
+    <p>{{ 'search.empty' | translate }}</p>
+    <span>
+      {{ 'search.emptySpan' | translate }}
+    </span>
+  </div>
   }
 </div>
