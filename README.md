@@ -58,4 +58,8 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
 
 ---
 
+## Deploy feito na Vercel
+
+- (https://rickmorty-challenge.vercel.app/characters)
+
 Se precisar de instruções para deploy ou integração, consulte a documentação Angular ou peça detalhes aqui, Valeu!
