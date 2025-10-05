@@ -8,7 +8,6 @@ import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
-  startWith,
   catchError,
   of,
   BehaviorSubject,

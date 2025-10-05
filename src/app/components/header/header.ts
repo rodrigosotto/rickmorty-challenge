@@ -3,25 +3,25 @@ import { RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FavoriteService } from '../../services/favorites.service';
 import { LanguageSelector } from '../language-selector/language-selector';
-
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, LanguageSelector],
+  imports: [RouterLink, LanguageSelector, TranslatePipe],
   templateUrl: './header.html',
-  styleUrl: './header.scss'
+  styleUrl: './header.scss',
 })
 export class Header implements OnInit, OnDestroy {
   favoriteCount: number = 0;
   private destroy$ = new Subject<void>();
   logoPath = 'assets/logo/rick-morty-logo.png';
 
-  constructor(private favoriteService: FavoriteService) {}
+  constructor(private readonly favoriteService: FavoriteService) {}
 
   ngOnInit(): void {
     this.favoriteService.favorites$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(favorites => {
+      .subscribe((favorites) => {
         this.favoriteCount = favorites.length;
       });
   }
