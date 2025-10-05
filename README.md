@@ -1,59 +1,61 @@
-# RickmortyChallenge
+# Rick & Morty Challenge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+Este projeto é uma aplicação Angular que exibe personagens do universo Rick & Morty, com funcionalidades de busca, favoritos e responsividade.
 
-## Development server
+## Pré-requisitos
 
-To start a local development server, run:
+- [Node.js](https://nodejs.org/) (versão recomendada: 18.x ou superior)
+- [npm](https://www.npmjs.com/) (geralmente instalado junto com o Node.js)
+- [Angular CLI](https://angular.io/cli) (instale globalmente com `npm install -g @angular/cli`)
 
-```bash
-ng serve
-```
+## Passo a passo para rodar localmente
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. **Clone o repositório**
 
-## Code scaffolding
+   ```sh
+   git clone https://github.com/seu-usuario/rickmorty-challenge.git
+   cd rickmorty-challenge
+   ```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+2. **Instale as dependências**
 
-```bash
-ng generate component component-name
-```
+   ```sh
+   npm install
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. **Rodando a aplicação**
 
-```bash
-ng generate --help
-```
+   ```sh
+   ng serve
+   ```
 
-## Building
+   Ou, alternativamente:
 
-To build the project run:
+   ```sh
+   npm start
+   ```
 
-```bash
-ng build
-```
+4. **Acesse no navegador**
+   - Abra [http://localhost:4200](http://localhost:4200)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Estrutura do Projeto
 
-## Running unit tests
+- `src/app/components/character-list/` — Lista de personagens
+- `src/app/components/favorites/` — Página de favoritos
+- `src/app/app.routes.ts` — Rotas principais da aplicação
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Observações
 
-```bash
-ng test
-```
+- O projeto utiliza Angular, RxJS e SCSS.
+- Para tradução, utilize os arquivos de i18n/locales.
+- Para problemas com dependências, remova `node_modules` e rode `npm install` novamente.
 
-## Running end-to-end tests
+## Scripts úteis
 
-For end-to-end (e2e) testing, run:
+- `ng test` — Executa testes unitários
+- `ng build` — Gera build de produção
+- `ng lint` — Analisa o código com linter
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Se precisar de instruções para deploy ou integração, consulte a documentação Angular ou peça detalhes aqui!
