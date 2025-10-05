@@ -17,14 +17,42 @@ export interface Character {
 })
 export class FavoriteService {
   private readonly STORAGE_KEY = 'rickandmorty_favorites';
+  private readonly CHANNEL_NAME = 'favorites_channel';
 
   // BehaviorSubject para gerenciar o estado dos favoritos
-  private favoritesSubject = new BehaviorSubject<Character[]>(this.loadFromStorage());
+  private favoritesSubject = new BehaviorSubject<Character[]>(
+    this.loadFromStorage()
+  );
 
   // Observable público para components se inscreverem
-  public favorites$: Observable<Character[]> = this.favoritesSubject.asObservable();
+  public favorites$: Observable<Character[]> =
+    this.favoritesSubject.asObservable();
 
-  constructor() {}
+  // BroadcastChannel para sincronização entre abas
+  private channel: BroadcastChannel;
+
+  constructor() {
+    // Inicializa BroadcastChannel
+    this.channel = new BroadcastChannel(this.CHANNEL_NAME);
+
+    // Escuta mensagens de outras abas
+    this.channel.onmessage = (event) => {
+      if (event.data.type === 'FAVORITES_UPDATED') {
+        console.log('Favoritos atualizados em outra aba, sincronizando...');
+        const updatedFavorites = this.loadFromStorage();
+        this.favoritesSubject.next(updatedFavorites);
+      }
+    };
+
+    // Fallback: escuta eventos do localStorage (para navegadores sem BroadcastChannel)
+    window.addEventListener('storage', (event) => {
+      if (event.key === this.STORAGE_KEY) {
+        console.log('LocalStorage alterado em outra aba, sincronizando...');
+        const updatedFavorites = this.loadFromStorage();
+        this.favoritesSubject.next(updatedFavorites);
+      }
+    });
+  }
 
   /**
    * Retorna o Observable de favoritos
@@ -98,11 +126,24 @@ export class FavoriteService {
   }
 
   /**
+   * Destrói o canal de comunicação (cleanup)
+   */
+  destroy(): void {
+    this.channel.close();
+  }
+
+  /**
    * Atualiza o BehaviorSubject e salva no storage
    */
   private updateFavorites(favorites: Character[]): void {
     this.favoritesSubject.next(favorites);
     this.saveToStorage(favorites);
+
+    // Notifica outras abas sobre a mudança
+    this.channel.postMessage({
+      type: 'FAVORITES_UPDATED',
+      timestamp: Date.now(),
+    });
   }
 
   /**
