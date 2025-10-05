@@ -114,7 +114,9 @@
     }
   }
 
-  animation: slideInUp 0.5s ease-out;
+ & {
+    animation: slideInUp 0.5s ease-out;
+  }
 }
 
 @keyframes slideInUp {
