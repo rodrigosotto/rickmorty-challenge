@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { FavoriteService, Character } from '../../services/favorites.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CommonModule, RouterModule, AsyncPipe],
+  imports: [CommonModule, RouterModule, AsyncPipe, TranslatePipe],
   templateUrl: './favorites.html',
   styleUrl: './favorites.scss',
 })

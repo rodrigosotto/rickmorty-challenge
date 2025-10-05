@@ -1,0 +1,19 @@
+.language-selector {
+      .form-select {
+        background-color: #1a1a1a;
+        border: 1px solid #3d3d3d;
+        color: white;
+        border-radius: 8px;
+        padding: 0.5rem;
+
+        &:focus {
+          border-color: #B2DF28;
+          box-shadow: 0 0 0 0.2rem rgba(178, 223, 40, 0.25);
+        }
+
+        option {
+          background-color: #1a1a1a;
+          color: white;
+        }
+      }
+    }

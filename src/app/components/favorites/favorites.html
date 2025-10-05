@@ -1,18 +1,17 @@
 <div class="container">
   <div class="row d-flex justify-content-between align-items-center mb-4">
     <div class="col-auto">
-      <h2 class="title">FAVORITOS</h2>
+      <h2 class="title">{{ 'favorites.title' | translate }}</h2>
     </div>
     <div class="col-auto">
       @if ((favorites$ | async)?.length) {
         <button class="btn btn-danger" (click)="clearAll()">
-          <i class="bi bi-trash"></i> Limpar Todos
+          <i class="bi bi-trash"></i> {{ 'favorites.clearAll' | translate }}
         </button>
       }
     </div>
   </div>
 
-  <!-- IMPORTANTE: Use async pipe aqui -->
   @if (favorites$ | async; as favorites) {
     @if (favorites.length > 0) {
       <div class="row g-4">
@@ -23,7 +22,7 @@
               <button
                 class="favorite-btn active"
                 (click)="removeFromFavorites(character)"
-                aria-label="Remover dos favoritos"
+                aria-label="{{ 'favorites.removeFromFavorites' | translate }}"
               >
                 <i class="bi bi-heart-fill"></i>
               </button>
@@ -38,12 +37,12 @@
 }@else {
   <div class="favorites__empty">
 
-    <p>Parece que você não tem favoritos</p>
+    <p>{{ 'favorites.empty' | translate }}</p>
     <span>
-      Volte à página inicial e escolha os melhores para você.
+      {{ 'favorites.emptySpan' | translate }}
     </span>
     <button class="favorites__empty--button" routerLink="/characters" >
-     Voltar ao início
+     {{ 'favorites.emptyButton' | translate }}
     </button>
   </div>
 }

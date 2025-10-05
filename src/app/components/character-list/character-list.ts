@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
-import { CharacterService } from '../../services/character.service';
-import { FavoriteService, Character } from '../../services/favorites.service';
+import { Subject, takeUntil, debounceTime, distinctUntilChanged, switchMap, startWith, catchError, of, BehaviorSubject } from 'rxjs';
+import { CharacterService, Character } from '../../services/character.service';
+import { FavoriteService } from '../../services/favorites.service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-character-list',
@@ -18,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
+    TranslatePipe,
   ],
   providers: [
     {
@@ -39,6 +41,7 @@ export class CharacterList implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
   private favoriteIds = new Set<number>();
+  private searchSubject = new BehaviorSubject<string>('');
 
   constructor(
     private characterService: CharacterService,
@@ -46,9 +49,46 @@ export class CharacterList implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.loadCharacters();
+    this.setupSearch();
+    this.setupFavorites();
+  }
 
-    // Se inscreve nos favoritos para atualizar a UI em tempo real
+  private setupSearch(): void {
+    // Busca eficiente com RxJS
+    this.searchSubject
+      .pipe(
+        debounceTime(300), // Aguarda 300ms após parar de digitar
+        distinctUntilChanged(), // Só faz nova busca se o termo mudou
+        switchMap(searchTerm => {
+          this.loading = true;
+          this.currentPage = 1;
+          this.characters = [];
+
+          return this.characterService.getCharacters(1, searchTerm).pipe(
+            catchError(err => {
+              this.error = 'Erro ao buscar personagens. Tente novamente.';
+              console.error('Erro na busca:', err);
+              return of({ info: { count: 0, pages: 0, next: null, prev: null }, results: [] });
+            })
+          );
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (response) => {
+          this.characters = response.results;
+          this.totalPages = response.info.pages;
+          this.hasMore = this.currentPage < this.totalPages;
+          this.loading = false;
+          this.error = null;
+        }
+      });
+
+    // Inicia a primeira busca
+    this.searchSubject.next('');
+  }
+
+  private setupFavorites(): void {
     this.favoriteService.favorites$
       .pipe(takeUntil(this.destroy$))
       .subscribe(favorites => {
@@ -64,29 +104,6 @@ export class CharacterList implements OnInit, OnDestroy {
     if (scrollPosition >= scrollThreshold && !this.loading && this.hasMore) {
       this.loadMoreCharacters();
     }
-  }
-
-  loadCharacters(): void {
-    this.loading = true;
-    this.currentPage = 1;
-    this.characters = [];
-
-    this.characterService
-      .getCharacters(this.currentPage, this.searchTerm)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          this.characters = response.results;
-          this.totalPages = response.info.pages;
-          this.hasMore = this.currentPage < this.totalPages;
-          this.loading = false;
-        },
-        error: (err) => {
-          this.error = 'Erro ao carregar personagens. Tente novamente.';
-          this.loading = false;
-          console.error('Erro ao carregar personagens:', err);
-        },
-      });
   }
 
   loadMoreCharacters(): void {
@@ -115,8 +132,14 @@ export class CharacterList implements OnInit, OnDestroy {
       });
   }
 
-  search(): void {
-    this.loadCharacters();
+  onSearchChange(value: string): void {
+    this.searchTerm = value;
+    this.searchSubject.next(value);
+  }
+
+  // Função trackBy para otimizar *ngFor
+  trackByCharacterId(index: number, character: Character): number {
+    return character.id;
   }
 
   toggleFavorite(character: Character): void {
