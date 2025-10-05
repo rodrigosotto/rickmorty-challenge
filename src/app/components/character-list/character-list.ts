@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { CharacterService } from '../../services/character.service';
-import { FavoriteService } from '../../services/favorites.service';
+import { FavoriteService, Character } from '../../services/favorites.service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
 
 @Component({
   selector: 'app-character-list',
@@ -28,14 +28,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   templateUrl: './character-list.html',
   styleUrl: './character-list.scss',
 })
-export class CharacterList implements OnInit {
-
-  characters: any[] = [];
+export class CharacterList implements OnInit, OnDestroy {
+  characters: Character[] = [];
   searchTerm: string = '';
   currentPage: number = 1;
   totalPages: number = 0;
   loading: boolean = false;
   error: string | null = null;
+  hasMore: boolean = true;
+
+  private destroy$ = new Subject<void>();
+  private favoriteIds = new Set<number>();
 
   constructor(
     private characterService: CharacterService,
@@ -44,16 +47,38 @@ export class CharacterList implements OnInit {
 
   ngOnInit(): void {
     this.loadCharacters();
+
+    // Se inscreve nos favoritos para atualizar a UI em tempo real
+    this.favoriteService.favorites$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(favorites => {
+        this.favoriteIds = new Set(favorites.map(f => f.id));
+      });
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const scrollThreshold = document.documentElement.scrollHeight - 200;
+
+    if (scrollPosition >= scrollThreshold && !this.loading && this.hasMore) {
+      this.loadMoreCharacters();
+    }
   }
 
   loadCharacters(): void {
     this.loading = true;
+    this.currentPage = 1;
+    this.characters = [];
+
     this.characterService
       .getCharacters(this.currentPage, this.searchTerm)
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           this.characters = response.results;
           this.totalPages = response.info.pages;
+          this.hasMore = this.currentPage < this.totalPages;
           this.loading = false;
         },
         error: (err) => {
@@ -64,44 +89,46 @@ export class CharacterList implements OnInit {
       });
   }
 
+  loadMoreCharacters(): void {
+    if (this.currentPage >= this.totalPages) {
+      this.hasMore = false;
+      return;
+    }
+
+    this.loading = true;
+    this.currentPage++;
+
+    this.characterService
+      .getCharacters(this.currentPage, this.searchTerm)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.characters = [...this.characters, ...response.results];
+          this.hasMore = this.currentPage < this.totalPages;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.error = 'Erro ao carregar mais personagens.';
+          this.loading = false;
+          console.error('Erro ao carregar mais personagens:', err);
+        },
+      });
+  }
+
   search(): void {
-    this.currentPage = 1;
     this.loadCharacters();
   }
 
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.loadCharacters();
-    }
-  }
-
-  getPageNumbers(): number[] {
-    const pages = [];
-    const maxVisiblePages = 5;
-
-    let startPage = Math.max(
-      1,
-      this.currentPage - Math.floor(maxVisiblePages / 2)
-    );
-    let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
-
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-
-    return pages;
-  }
-
-  toggleFavorite(character: any): void {
+  toggleFavorite(character: Character): void {
     this.favoriteService.toggleFavorite(character);
   }
 
-  isFavorite(character: any): boolean {
-    return this.favoriteService.isFavorite(character.id);
+  isFavorite(character: Character): boolean {
+    return this.favoriteIds.has(character.id);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

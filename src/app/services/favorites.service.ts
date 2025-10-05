@@ -1,50 +1,73 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+export interface Character {
+  id: number;
+  name: string;
+  image: string;
+  species: string;
+  status: string;
+  gender: string;
+  origin: { name: string };
+  location: { name: string };
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoriteService {
-  private favorites: any[] = [];
-  private favoritesSubject = new BehaviorSubject<any[]>([]);
+  private readonly STORAGE_KEY = 'rickandmorty_favorites';
 
-  constructor() {
-    this.loadFavorites();
+  // BehaviorSubject para gerenciar o estado dos favoritos
+  private favoritesSubject = new BehaviorSubject<Character[]>(this.loadFromStorage());
+
+  // Observable público para components se inscreverem
+  public favorites$: Observable<Character[]> = this.favoritesSubject.asObservable();
+
+  constructor() {}
+
+  /**
+   * Retorna o Observable de favoritos
+   */
+  getFavorites(): Observable<Character[]> {
+    return this.favorites$;
   }
 
-  private loadFavorites(): void {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      this.favorites = JSON.parse(storedFavorites);
-      this.favoritesSubject.next(this.favorites);
-    }
+  /**
+   * Retorna o valor atual dos favoritos (snapshot)
+   */
+  getCurrentFavorites(): Character[] {
+    return this.favoritesSubject.getValue();
   }
 
-  private saveFavorites(): void {
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
-    this.favoritesSubject.next(this.favorites);
-  }
+  /**
+   * Adiciona um personagem aos favoritos
+   */
+  addFavorite(character: Character): void {
+    const currentFavorites = this.getCurrentFavorites();
 
-  getFavorites() {
-    return this.favoritesSubject.asObservable();
-  }
-
-  addFavorite(character: any): void {
+    // Verifica se já não está nos favoritos
     if (!this.isFavorite(character.id)) {
-      this.favorites.push(character);
-      this.saveFavorites();
+      const updatedFavorites = [...currentFavorites, character];
+      this.updateFavorites(updatedFavorites);
     }
   }
 
-  removeFavorite(id: number): void {
-    const index = this.favorites.findIndex((char) => char.id === id);
-    if (index !== -1) {
-      this.favorites.splice(index, 1);
-      this.saveFavorites();
-    }
+  /**
+   * Remove um personagem dos favoritos
+   */
+  removeFavorite(characterId: number): void {
+    const currentFavorites = this.getCurrentFavorites();
+    const updatedFavorites = currentFavorites.filter(
+      (char) => char.id !== characterId
+    );
+    this.updateFavorites(updatedFavorites);
   }
 
-  toggleFavorite(character: any): void {
+  /**
+   * Alterna o status de favorito de um personagem
+   */
+  toggleFavorite(character: Character): void {
     if (this.isFavorite(character.id)) {
       this.removeFavorite(character.id);
     } else {
@@ -52,7 +75,57 @@ export class FavoriteService {
     }
   }
 
-  isFavorite(id: number): boolean {
-    return this.favorites.some((char) => char.id === id);
+  /**
+   * Verifica se um personagem está nos favoritos
+   */
+  isFavorite(characterId: number): boolean {
+    const currentFavorites = this.getCurrentFavorites();
+    return currentFavorites.some((char) => char.id === characterId);
+  }
+
+  /**
+   * Retorna a quantidade de favoritos
+   */
+  getFavoritesCount(): number {
+    return this.getCurrentFavorites().length;
+  }
+
+  /**
+   * Limpa todos os favoritos
+   */
+  clearAllFavorites(): void {
+    this.updateFavorites([]);
+  }
+
+  /**
+   * Atualiza o BehaviorSubject e salva no storage
+   */
+  private updateFavorites(favorites: Character[]): void {
+    this.favoritesSubject.next(favorites);
+    this.saveToStorage(favorites);
+  }
+
+  /**
+   * Carrega favoritos do localStorage
+   */
+  private loadFromStorage(): Character[] {
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Erro ao carregar favoritos do storage:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Salva favoritos no localStorage
+   */
+  private saveToStorage(favorites: Character[]): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favorites));
+    } catch (error) {
+      console.error('Erro ao salvar favoritos no storage:', error);
+    }
   }
 }

@@ -1,0 +1,25 @@
+    <div class="confirm-dialog">
+      <h2 mat-dialog-title>
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        {{ data.title }}
+      </h2>
+
+      <mat-dialog-content>
+        <p>{{ data.message }}</p>
+      </mat-dialog-content>
+
+      <mat-dialog-actions align="end">
+        <button
+          mat-button
+          class="btn-cancel"
+          (click)="onCancel()">
+          {{ data.cancelText || 'Cancelar' }}
+        </button>
+        <button
+          mat-raised-button
+          class="btn-confirm"
+          (click)="onConfirm()">
+          {{ data.confirmText || 'Confirmar' }}
+        </button>
+      </mat-dialog-actions>
+    </div>
