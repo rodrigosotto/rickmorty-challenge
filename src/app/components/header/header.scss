@@ -12,17 +12,8 @@ header {
     padding: 0 32px;
   }
 
-  .d-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-  }
-
   img {
-    margin-left: 8px;
-    height: 48px;
-    filter: drop-shadow(0 2px 4px #39ff14);
+    width: 35%;
   }
 
   h1 {
@@ -61,8 +52,8 @@ header {
 
           &.active,
           &:hover {
-            background: #39ff14;
-            color: #181818 !important;
+            background: #B2DF28;
+            color: #1a1a1a !important;
           }
         }
       }
