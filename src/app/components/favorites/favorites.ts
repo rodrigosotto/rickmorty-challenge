@@ -22,11 +22,6 @@ export class Favorites {
     private dialog: MatDialog
   ) {
     this.favorites$ = this.favoriteService.favorites$;
-
-    // DEBUG: Log para verificar se está recebendo atualizações
-    this.favorites$.subscribe((favs) => {
-      console.log('Favoritos atualizados em tempo real:', favs.length);
-    });
   }
 
   removeFromFavorites(character: Character): void {
@@ -35,11 +30,11 @@ export class Favorites {
 
   clearAll(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '500px',
+      width: '580px',
       data: {
-        title: 'Limpar Todos os Favoritos',
+        title: 'Remover Todos os Favoritos',
         message: 'Tem certeza que deseja remover TODOS os favoritos?',
-        confirmText: 'Sim, limpar tudo',
+        confirmText: 'Sim, remover tudo',
         cancelText: 'Cancelar',
       },
     });

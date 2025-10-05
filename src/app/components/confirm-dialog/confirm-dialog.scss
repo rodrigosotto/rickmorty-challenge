@@ -1,0 +1,72 @@
+   .confirm-dialog {
+    background-color: #f0f0f0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    animation: dialogFadeIn 0.3s ease-out;
+
+      h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: #ff4757;
+        font-size: 1.3rem;
+        font-weight: 600;
+        font-family: 'Poppins', system-ui;
+        margin: 0;
+        padding: 20px 20px;
+
+        i {
+          font-size: 1.8rem;
+        }
+      }
+
+      mat-dialog-content {
+        padding: 0 24px 24px 24px;
+        text-align: center;
+
+        p {
+          font-size: 1rem;
+          font-family: 'Poppins', system-ui;
+          color: #1a1a1a;
+          margin: 0;
+          line-height: 1.6;
+
+        }
+      }
+
+      mat-dialog-actions {
+        justify-content: space-between;
+        padding: 20px 20px;
+        gap: 12px;
+
+        button {
+          font-size: 1rem;
+          font-weight: 500;
+          font-family: 'Poppins', system-ui;
+          border: none;
+          cursor: pointer;
+          transition: background 0.3s ease;
+          padding: 10px 24px;
+          border-radius: 8px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .btn-cancel {
+          color: #1a1a1a;
+
+          &:hover {
+            background: #d3d3d3;
+          }
+        }
+
+        .btn-confirm {
+          background: #ff4757;
+          color: #f0f0f0;
+
+          &:hover {
+            background: #ff3838;
+          }
+        }
+      }
+    }

@@ -34,7 +34,7 @@ export class I18nService {
       'favorites.add': 'Adicionar aos favoritos',
       'favorites.remove': 'Remover dos favoritos',
       'character.status.unknown': 'Desconhecido',
-      'favorites.clearAll': 'Limpar tudo',
+      'favorites.clearAll': 'Remover tudo',
       'favorites.emptySpan':
         'Retorne à página inicial e escolha os melhores para você.',
       'favorites.emptyButton': 'Voltar ao início',
@@ -60,7 +60,7 @@ export class I18nService {
       'character.status.alive': 'Alive',
       'character.status.dead': 'Dead',
       'character.status.unknown': 'Unknown',
-      'favorites.clearAll': 'Clear all',
+      'favorites.clearAll': 'Remove all',
       'favorites.emptySpan':
         'Return to the home page and choose the best for you.',
       'favorites.emptyButton': 'Go back to the home page',
@@ -84,7 +84,7 @@ export class I18nService {
       'favorites.add': 'Agregar a favoritos',
       'favorites.remove': 'Quitar de favoritos',
       'character.status.unknown': 'Desconocido',
-      'favorites.clearAll': 'Limpiar todo',
+      'favorites.clearAll': 'Remover todo',
       'favorites.emptySpan':
         'Retorne à página inicial e escolha os melhores para você.',
       'favorites.emptyButton': 'Volver al início',
