@@ -12,12 +12,13 @@ import {
   of,
   BehaviorSubject,
 } from 'rxjs';
-import { CharacterService, Character } from '../../services/character.service';
+import { CharacterService } from '../../services/character.service';
 import { FavoriteService } from '../../services/favorites.service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { Character } from '../../interfaces/character';
 
 @Component({
   selector: 'app-character-list',
@@ -63,11 +64,10 @@ export class CharacterList implements OnInit, OnDestroy {
   }
 
   private setupSearch(): void {
-    // Busca com RxJS
     this.searchSubject
       .pipe(
-        debounceTime(300), // Aguarda 300ms após parar de digitar
-        distinctUntilChanged(), // Só faz nova busca se o termo mudou
+        debounceTime(300),
+        distinctUntilChanged(),
         switchMap((searchTerm) => {
           this.loading = true;
           this.currentPage = 1;
@@ -96,7 +96,6 @@ export class CharacterList implements OnInit, OnDestroy {
         },
       });
 
-    // Inicia a primeira busca
     this.searchSubject.next('');
   }
 
@@ -149,7 +148,6 @@ export class CharacterList implements OnInit, OnDestroy {
     this.searchSubject.next(value);
   }
 
-  // Função trackBy para otimizar *ngFor
   trackByCharacterId(index: number, character: Character): number {
     return character.id;
   }

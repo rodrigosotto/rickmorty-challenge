@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FavoriteService, Character } from '../../services/favorites.service';
+import { FavoriteService } from '../../services/favorites.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { Character } from '../../interfaces/character';
 
 @Component({
   selector: 'app-favorites',

@@ -3,7 +3,6 @@
     .custom-search {
       width: $width !important;
 
-      // Responsivo: 100% em mobile
       @media (max-width: 768px) {
         width: 100% !important;
         max-width: 100% !important;
@@ -72,7 +71,6 @@
         border: none;
       }
 
-      // Ajusta o form field wrapper
       .mat-mdc-text-field-wrapper {
         @media (max-width: 480px) {
           padding-left: 0 !important;
@@ -80,7 +78,6 @@
         }
       }
 
-      // Ajusta a altura do campo em mobile
       .mat-mdc-form-field-infix {
         min-height: 48px;
 

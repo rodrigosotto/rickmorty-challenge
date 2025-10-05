@@ -7,39 +7,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-
-
-// // Custom Dialog Styles
-// .mat-mdc-dialog-container {
-//   --mdc-dialog-container-color: #1a1a1a;
-//   --mdc-dialog-container-shape: 12px;
-
-
-//   .mdc-dialog__surface {
-//     background-color: #f0f0f0;
-//     border: 2px solid #3d3d3d;
-//     width: 100%;
-//   }
-// }
-
-// // Dialog Backdrop
-// .cdk-overlay-dark-backdrop {
-//   background: rgba(0, 0, 0, 0.7);
-// }
-
-// // Dialog Animations
-// .mat-mdc-dialog-container {
-//   animation: dialogFadeIn 0.3s ease-out;
-// }
-
-// @keyframes dialogFadeIn {
-//   from {
-//     opacity: 0;
-//     transform: scale(0.9) translateY(-20px);
-//   }
-//   to {
-//     opacity: 1;
-//     transform: scale(1) translateY(0);
-//   }
-// }

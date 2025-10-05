@@ -1,47 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface ApiResponse<T> {
-  info: {
-    count: number;
-    pages: number;
-    next: string | null;
-    prev: string | null;
-  };
-  results: T[];
-}
-
-export interface Character {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  image: string;
-  episode: string[];
-  url: string;
-  created: string;
-}
+import { API_URL } from '../../environment';
+import { ApiResponse } from '../interfaces/api-response';
+import { Character } from '../interfaces/character';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CharacterService {
-  private apiUrl = 'https://rickandmortyapi.com/api';
+  private apiUrl = API_URL;
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(page: number = 1, name: string = '', status?: string, species?: string, gender?: string): Observable<ApiResponse<Character>> {
+  getCharacters(
+    page: number = 1,
+    name: string = '',
+    status?: string,
+    species?: string,
+    gender?: string
+  ): Observable<ApiResponse<Character>> {
     let params = new HttpParams().set('page', page.toString());
 
     if (name.trim()) {
@@ -57,7 +35,9 @@ export class CharacterService {
       params = params.set('gender', gender);
     }
 
-    return this.http.get<ApiResponse<Character>>(`${this.apiUrl}/character`, { params });
+    return this.http.get<ApiResponse<Character>>(`${this.apiUrl}/character`, {
+      params,
+    });
   }
 
   getCharacter(id: number): Observable<Character> {

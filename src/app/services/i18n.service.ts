@@ -92,7 +92,6 @@ export class I18nService {
   };
 
   constructor() {
-    // Carrega idioma salvo ou usa português como padrão
     const savedLang = localStorage.getItem(
       'preferred-language'
     ) as SupportedLanguage;
