@@ -67,6 +67,6 @@ cd rickmorty-challenge
 
 ## Deploy feito na Vercel
 
-- (https://rickmorty-challenge.vercel.app/characters)
+- [rickmorty-challenge](https://rickmorty-challenge.vercel.app/characters)
 
 Se precisar de instruções para deploy ou integração, consulte a documentação Angular ou peça detalhes aqui, Valeu!
