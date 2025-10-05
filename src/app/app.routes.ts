@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { CharacterList } from './components/character-list/character-list';
 import { CharacterDetail } from './components/character-detail/character-detail';
-import { Favorites } from './services/favorites.service';
+import { Favorites } from './components/favorites/favorites';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'characters', pathMatch: 'full' },

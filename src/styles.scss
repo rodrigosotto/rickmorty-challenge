@@ -1,11 +1,8 @@
 @use 'bootstrap/scss/bootstrap' as bs;
 
-.custom-element {
-  @include bs.button-variant(#007bff, #007bff, #fff);
-}
 body {
-  font-family: 'Arial, sans-serif';
-  background-color: #f8f9fa;
+  font-family: 'Poppins', system-ui;
+  background-color: #1F1F1F;
   margin: 0;
   padding: 0;
 }
