@@ -8,15 +8,22 @@
 
 
       <nav class="nav-bar-custom">
-              <app-language-selector></app-language-selector>
-        <a class="nav-btn-home active" routerLink="/"><span class="icon bi bi-house-fill"></span>
-        {{ 'nav.home' | translate }}
+        <app-language-selector></app-language-selector>
+        <a class="nav-btn-home"
+          [ngClass]="{ 'active': !isFavoritesPage, 'bg-dark': isFavoritesPage, 'bg-white': !isFavoritesPage }"
+          routerLink="/">
+          <span class="icon bi bi-house-fill"></span>
+          {{ 'nav.home' | translate }}
         </a>
-        <a class="nav-btn-fav" routerLink="/favorites"><span class="icon bi bi-heart-fill"></span>
-        {{ 'nav.favorites' | translate }}
-          <span class="fav-count">
-            {{ favoriteCount }}
-          </span></a>
+        <a class="nav-btn-fav"
+          [ngClass]="{ 'active': isFavoritesPage, 'bg-white': isFavoritesPage, 'bg-dark': !isFavoritesPage }"
+          routerLink="/favorites">
+          <span class="icon bi bi-heart-fill"></span>
+          {{ 'nav.favorites' | translate }}
+          <span class="fav-count"
+            [ngClass]="{ 'active': !isFavoritesPage, 'bg-dark': isFavoritesPage, 'bg-white': !isFavoritesPage }">{{
+            favoriteCount }}</span>
+        </a>
       </nav>
     </div>
   </div>

@@ -296,11 +296,23 @@ header {
       }
     }
   }
+
+  .bg-dark {
+    background-color: #222 !important;
+    color: #fff !important;
+
+  }
+
+  .bg-white {
+    background-color: #fff !important;
+    color: #222 !important;
+  }
 }
 
 @media (max-width: 380px) {
   header {
     .nav-bar-custom {
+
       .nav-btn-home,
       .nav-btn-fav {
         font-size: 0.5625rem;
