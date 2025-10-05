@@ -25,10 +25,14 @@
     margin-left: -0.5rem;
     margin-right: -0.5rem;
 
-    > [class*='col-'] {
+    >[class*='col-'] {
       padding-left: 0.5rem;
       padding-right: 0.5rem;
     }
+  }
+
+  &-header {
+    justify-content: space-between;
   }
 
   .card {
@@ -295,7 +299,7 @@
       margin-left: -0.75rem;
       margin-right: -0.75rem;
 
-      > [class*='col-'] {
+      >[class*='col-'] {
         padding-left: 0.75rem;
         padding-right: 0.75rem;
         margin-bottom: 1rem;
@@ -326,7 +330,7 @@
       margin-left: -0.5rem;
       margin-right: -0.5rem;
 
-      > [class*='col-'] {
+      >[class*='col-'] {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
       }
