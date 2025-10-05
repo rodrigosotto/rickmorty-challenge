@@ -13,17 +13,24 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
 1. **Clone o repositório**
 
    ```sh
-   git clone https://github.com/seu-usuario/rickmorty-challenge.git
+   git clone https://github.com/rodrigosotto/rickmorty-challenge.git
    cd rickmorty-challenge
    ```
 
-2. **Instale as dependências**
+2. **Outra alternativa seria fazer o download do repositório**
+
+- [Baixar repositório](https://github.com/rodrigosotto/rickmorty-challenge/archive/refs/heads/main.zip)
+
+Descompactar o arquivo.zip baixado
+cd rickmorty-challenge
+
+3. **Instale as dependências**
 
    ```sh
    npm install
    ```
 
-3. **Rodando a aplicação**
+4. **Rodando a aplicação**
 
    ```sh
    ng serve
@@ -35,7 +42,7 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
    npm start
    ```
 
-4. **Acesse no navegador**
+5. **Acesse no navegador**
    - Abra [http://localhost:4200](http://localhost:4200)
 
 ## Estrutura do Projeto
