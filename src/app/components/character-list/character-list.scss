@@ -309,13 +309,9 @@
     padding-left: 0.75rem;
     padding-right: 0.75rem;
 
-    .d-flex.justify-content-between {
+    &-header {
       gap: 1rem;
-      align-items: flex-start !important;
-
-      .col-auto {
-        width: 100%;
-      }
+      justify-content: space-between;
     }
   }
 }
