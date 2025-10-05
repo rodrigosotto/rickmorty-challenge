@@ -21,8 +21,13 @@ Este projeto é uma aplicação Angular que exibe personagens do universo Rick &
 
 - [Baixar repositório](https://github.com/rodrigosotto/rickmorty-challenge/archive/refs/heads/main.zip)
 
-Descompactar o arquivo.zip baixado
+```sh
+Após baixar o arquivo .zip você deve descompactar
 cd rickmorty-challenge
+npm install
+ng serve
+acesse http://localhost:4200
+```
 
 3. **Instale as dependências**
 
